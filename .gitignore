@@ -1,0 +1,23 @@
+# Node dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional build artifacts
+dist/
+build/
+
+
+# IDE
+.vscode/
+.idea/
+
+# Mac OS
+.DS_Store
+
+# MISC
+.env
+.env.local
