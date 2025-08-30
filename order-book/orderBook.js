@@ -23,6 +23,13 @@ class OrderBook {
       ? Math.max(...filtered.map((o) => o.price))
       : Math.min(...filtered.map((o) => o.price));
   }
+  getQuantityAtPrice(type, price) {
+    const filtered = this.getOrders(type);
+    return filtered.reduce(
+      (acc, cur) => (cur.price === price ? acc + cur.quantity : acc),
+      0
+    );
+  }
 }
 
 module.exports = { OrderBook };

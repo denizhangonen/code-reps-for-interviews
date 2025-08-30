@@ -39,5 +39,14 @@ describe('OrderBook basics', () => {
     expect(ob.getBestPrice('buy')).toBe(110);
     expect(ob.getBestPrice('sell')).toBe(115);
   });
+  test('returns total quantity at a given price level', () => {
+    ob.addOrder({ id: 'b1', type: 'buy', price: 100, quantity: 5 });
+    ob.addOrder({ id: 'b2', type: 'buy', price: 100, quantity: 3 });
+    ob.addOrder({ id: 's1', type: 'sell', price: 120, quantity: 2 });
+
+    expect(ob.getQuantityAtPrice('buy', 100)).toBe(8); // 5 + 3
+    expect(ob.getQuantityAtPrice('sell', 120)).toBe(2);
+    expect(ob.getQuantityAtPrice('sell', 999)).toBe(0); // no such price
+  });
 });
 
