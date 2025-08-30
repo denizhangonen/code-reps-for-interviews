@@ -30,5 +30,14 @@ describe('OrderBook basics', () => {
     expect(ob.cancelOrder('s88')).toBe(false);
     expect(ob.getOrder('s1')).toEqual(sell);
   });
+  test('returns best price for buy and sell orders', () => {
+    ob.addOrder({ id: 'b1', type: 'buy', price: 100, quantity: 5 });
+    ob.addOrder({ id: 'b2', type: 'buy', price: 110, quantity: 2 });
+    ob.addOrder({ id: 's1', type: 'sell', price: 120, quantity: 1 });
+    ob.addOrder({ id: 's2', type: 'sell', price: 115, quantity: 3 });
+
+    expect(ob.getBestPrice('buy')).toBe(110);
+    expect(ob.getBestPrice('sell')).toBe(115);
+  });
 });
 
