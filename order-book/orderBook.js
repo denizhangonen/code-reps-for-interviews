@@ -30,6 +30,19 @@ class OrderBook {
       0
     );
   }
+  updateOrderQuantity(id, quantity) {
+    const order = this.getOrder(id);
+    if (!order) {
+      return false;
+    }
+
+    if (quantity === 0) {
+      this.orders = this.orders.filter((o) => o.id !== id);
+    } else {
+      order.quantity = quantity; // directly modify
+    }
+    return true;
+  }
 }
 
 module.exports = { OrderBook };

@@ -48,5 +48,19 @@ describe('OrderBook basics', () => {
     expect(ob.getQuantityAtPrice('sell', 120)).toBe(2);
     expect(ob.getQuantityAtPrice('sell', 999)).toBe(0); // no such price
   });
+  test('updates order quantity by id; setting 0 removes the order', () => {
+    ob.addOrder({ id: 'b1', type: 'buy', price: 100, quantity: 5 });
+
+    // update existing
+    expect(ob.updateOrderQuantity('b1', 10)).toBe(true);
+    expect(ob.getOrder('b1').quantity).toBe(10);
+
+    // set to zero -> remove
+    expect(ob.updateOrderQuantity('b1', 0)).toBe(true);
+    expect(ob.getOrder('b1')).toBeNull();
+
+    // non-existent id
+    expect(ob.updateOrderQuantity('nope', 7)).toBe(false);
+  });
 });
 
