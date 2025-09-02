@@ -1,5 +1,6 @@
 import './App.css';
 import { ToDoProvider } from './components/ToDoProvider/ToDoContext/ToDoContext';
+import { ThemeProvider } from './Theme/ThemeContext';
 
 // components
 import Counter from './components/Counter/Counter';
@@ -11,13 +12,15 @@ import ToDoList from './components/ToDoProvider/ToDoList/ToDoList';
 function App() {
   return (
     <div className="App">
-      <ToDoProvider>
-        <ToDoForm />
-        <ToDoList />
-        <Counter />
-        <ToggleList />
-        <UserList />
-      </ToDoProvider>
+      <ThemeProvider>
+        <ToDoProvider>
+          <ToDoForm />
+          <ToDoList />
+          <Counter />
+          <ToggleList />
+          <UserList />
+        </ToDoProvider>
+      </ThemeProvider>
     </div>
   );
 }

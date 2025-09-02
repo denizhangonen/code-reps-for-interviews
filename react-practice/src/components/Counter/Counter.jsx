@@ -2,11 +2,13 @@ import { useState } from 'react';
 
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoProvider/ToDoContext/ToDoContext'
+import { ThemeContext } from '../../Theme/ThemeContext'
 
 const Counter = () => {
   const [count, setCount] = useState(0);
 
   const ctx = useContext(ToDoContext)
+  const themeCtx = useContext(ThemeContext);
 
   const counterDecHandler = () => {
     setCount((prev) => prev - 1);
@@ -18,8 +20,9 @@ const Counter = () => {
   const counterResetHandler = () => {
     setCount(0);
   };
+  console.log('themeCtx:', themeCtx)
   return (
-    <div className="counterContainer">
+    <div className="counterContainer" style={{ background: themeCtx.theme === 'light' ? '#fff' : '#444', color: themeCtx.theme === 'light' ? '#444' : '#eee' }}>
       <div>Count: {count}</div>
       <div>Value: {ctx.value}</div>
       <button onClick={() => ctx.incVal()}>Up</button>
