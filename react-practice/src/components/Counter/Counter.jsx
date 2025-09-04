@@ -4,6 +4,8 @@ import { useContext } from 'react';
 import { ToDoContext } from '../ToDoProvider/ToDoContext/ToDoContext'
 import { ThemeContext } from '../../Theme/ThemeContext'
 
+import Child from './ChildCounter';
+
 const Counter = () => {
   const [count, setCount] = useState(0);
 
@@ -32,6 +34,7 @@ const Counter = () => {
         <button onClick={counterIncHandler}>+</button>
         <button onClick={counterResetHandler}> Reset</button>
       </div>
+      <Child label={'Child I\'m'} />
     </div>
   );
 };
