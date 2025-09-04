@@ -1,15 +1,28 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 
 const Clock = () => {
   const [now, setNow] = useState(null)
   const [startTime, setStartTime] = useState(null)
-  const internalRef = useRef();
 
+  const internalRef = useRef(null);
+
+  const isRunning = internalRef.current !== null;
+  console.log('internalRef.current:', internalRef.current)
+
+  useEffect(() => {
+    return () => {
+      if (internalRef.current !== null) {
+        clearInterval(internalRef.current)
+      }
+    }
+  }, [])
 
 
   const handleStart = () => {
-    setStartTime(Date.now())
-    setNow(Date.now());
+    if (isRunning) return;
+    const t = Date.now();
+    setStartTime(t)
+    setNow(t);
 
     clearInterval(internalRef.current);
     internalRef.current = setInterval(() => {
@@ -17,7 +30,10 @@ const Clock = () => {
     }, 10);
   }
   const handleStop = () => {
-    clearInterval(internalRef.current)
+    if (internalRef.current !== null) {
+      clearInterval(internalRef.current)
+      internalRef.current = null
+    }
   }
 
   const handleReset = () => {
@@ -35,10 +51,10 @@ const Clock = () => {
   return <div>
     <h2>Clock</h2>
     <h3>Time Passed: {secondsPassed.toFixed(2)}</h3>
-    <div style={{ display: 'flex' }}>
-      <button onClick={handleStart}>Start</button>
-      <button onClick={handleStop}>Stop</button>
-      <button onClick={handleReset}>Reset</button>
+    <div style={{ display: 'flex', gap: 4 }}>
+      <button onClick={handleStart} disabled={isRunning}>Start</button>
+      <button onClick={handleStop} disabled={!isRunning}>Stop</button>
+      <button onClick={handleReset} >Reset</button>
     </div>
   </div>
 }
