@@ -8,6 +8,7 @@ import ToggleList from './components/ToggleList/ToggleList';
 import UserList from './components/UserList/UserList';
 import ToDoForm from './components/ToDoProvider/ToDoForm/ToDoForm';
 import ToDoList from './components/ToDoProvider/ToDoList/ToDoList';
+import Clock from './components/Clock/Clock';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Counter />
           <ToggleList />
           <UserList />
+          <Clock />
         </ToDoProvider>
       </ThemeProvider>
     </div>
