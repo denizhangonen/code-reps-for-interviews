@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { useContext } from 'react';
 import { ToDoContext } from '../ToDoProvider/ToDoContext/ToDoContext'
@@ -22,6 +22,10 @@ const Counter = () => {
   const counterResetHandler = () => {
     setCount(0);
   };
+
+  const handleChildClick = useCallback(() => {
+    console.log('from parent child clicked')
+  }, [])
   console.log('themeCtx:', themeCtx)
   return (
     <div className="counterContainer" style={{ background: themeCtx.theme === 'light' ? '#fff' : '#444', color: themeCtx.theme === 'light' ? '#444' : '#eee' }}>
@@ -34,7 +38,7 @@ const Counter = () => {
         <button onClick={counterIncHandler}>+</button>
         <button onClick={counterResetHandler}> Reset</button>
       </div>
-      <Child label={'Child I\'m'} />
+      <Child label={'Child I\'m'} childClickHandler={handleChildClick} />
     </div>
   );
 };
