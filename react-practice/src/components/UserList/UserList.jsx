@@ -1,4 +1,6 @@
-import { useEffect, useState, useReducer } from "react";
+import { useEffect, useState, useReducer, lazy, Suspense } from "react";
+
+const LazyDetails = lazy(() => import('./LazyDetails/LazyDetails'))
 
 const url = 'https://jsonplaceholder.typicode.com/users';
 
@@ -51,6 +53,9 @@ const UserList = () => {
       // setIsLoading(true)
       dispatch({ type: 'loading_true' })
       try {
+        const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+        await delay(2000);           // wait 2s before the request
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error('response status:', response.status)
@@ -84,7 +89,11 @@ const UserList = () => {
         </ul>
       )}
     </div>
-
+    {!isLoading && users.length > 0 && (
+      <Suspense fallback={<p>Loading...</p>} >
+        <LazyDetails />
+      </Suspense>)
+    }
 
   </div>
 }

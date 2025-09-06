@@ -26,6 +26,7 @@ const Counter = () => {
   const handleChildClick = useCallback(() => {
     console.log('from parent child clicked')
   }, [])
+
   console.log('themeCtx:', themeCtx)
   return (
     <div className="counterContainer" style={{ background: themeCtx.theme === 'light' ? '#fff' : '#444', color: themeCtx.theme === 'light' ? '#444' : '#eee' }}>
